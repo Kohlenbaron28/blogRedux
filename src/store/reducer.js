@@ -1,6 +1,6 @@
 const initialState = {
   articles: [],
-  article: null,
+  article: {},
   loading: true,
   slug: null,
   sliceEl: 0,

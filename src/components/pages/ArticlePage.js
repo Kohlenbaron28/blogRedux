@@ -11,42 +11,50 @@ import classes from '../Article/Article.module.scss';
 let keys = 1;
 
 const ArticlePage = ({ article, getArticle }) => {
-  // console.log('article', article);
+  console.log('article', article);
   const { pathname } = useLocation();
   const slugParams = matchPath('/articles/*', pathname);
   const isSlug = Object.values(slugParams.params)[0];
-  console.log(isSlug);
-  React.useEffect(() => {
-    getArticle(isSlug);
-  });
-  return (
-    <div className={classes.article}>
-      <div className={classes['article__content']}>
-        <div className={classes['article__content__top']}>
-          <h1>{article.title}</h1>
+  //console.log(isSlug);
+  if (article === undefined) {
+    React.useEffect(() => {
+      getArticle(isSlug);
+    });
+  } else
+    return (
+      <div className={classes.article}>
+        <div className={classes['article__content']}>
+          <div className={classes['article__content__top']}>
+            <h1>{article.title}</h1>
 
-          <div>
-            <img src={Heart} alt="heart" />
-            {article.favoritesCount}
+            <div>
+              <img src={Heart} alt="heart" />
+              {article.favoritesCount}
+            </div>
+          </div>
+          <div className={classes['article__content__tags']}>
+            {article.tagList.length > 0 ? (
+              article.tagList.map((tag) => <span key={keys++}>{tag}</span>)
+            ) : (
+              <span>-</span>
+            )}
+          </div>
+          <div className={classes['article__content__description']}>{article.description}</div>
+          <div className={classes['article__content__text']}>{article.body}</div>
+        </div>
+        <div className={classes['article__avatar']}>
+          <div className={classes['article__avatar__info']}>
+            <div className={classes['article__avatar__name']}>{article.author.username}</div>
+            <div className={classes['article__avatar__date']}>
+              {format(parseISO(article.createdAt), 'MMMM dd, yyyy')}
+            </div>
+          </div>
+          <div className={classes['article__avatar__image']}>
+            <img src={article.author.image} alt="avatar" />
           </div>
         </div>
-        <div className={classes['article__content__tags']}>
-          {article.tagList.length > 0 ? article.tagList.map((tag) => <span key={keys++}>{tag}</span>) : <span>-</span>}
-        </div>
-        <div className={classes['article__content__description']}>{article.description}</div>
-        <div className={classes['article__content__text']}>{article.body}</div>
       </div>
-      <div className={classes['article__avatar']}>
-        <div className={classes['article__avatar__info']}>
-          <div className={classes['article__avatar__name']}>{article.author.username}</div>
-          <div className={classes['article__avatar__date']}>{format(parseISO(article.createdAt), 'MMMM dd, yyyy')}</div>
-        </div>
-        <div className={classes['article__avatar__image']}>
-          <img src={article.author.image} alt="avatar" />
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 const mapStateToProps = (state) => {
