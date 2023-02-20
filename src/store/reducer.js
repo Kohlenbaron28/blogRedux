@@ -11,7 +11,7 @@ export const reducer = (state = initialState, action) => {
     case 'GET_ARTICLES':
       return {
         ...state,
-        articles: [...state.articles, ...action.payload],
+        articles: [...state.articles, ...action.articles],
         loading: false,
       };
     case 'GET_ARTICLE_BY_SLUG':
@@ -27,8 +27,7 @@ export const reducer = (state = initialState, action) => {
     case 'SHOW_MORE':
       return {
         ...state,
-        sliceEl: (state.sliceEl += 20),
-        endSlice: (state.endSlice += 20),
+        articles: action.articles,
       };
     default:
       return state;

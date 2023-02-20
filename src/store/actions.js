@@ -1,7 +1,17 @@
 import service from './Service';
 
-export const getAllArticles = (payload) => {
-  return { type: 'GET_ARTICLES', payload };
+export const getAllArticles = () => {
+  return function (dispatch) {
+    service
+      .getArticles()
+      .then((res) => res.articles)
+      .then((articles) =>
+        dispatch({
+          type: 'GET_ARTICLES',
+          articles,
+        })
+      );
+  };
 };
 export const getArticle = (slug) => {
   return function (dispatch) {
@@ -19,6 +29,18 @@ export const getArticle = (slug) => {
 // export const sendSlug = (payload) => {
 //   return { type: 'SEND_SLUG', payload };
 // };
+let skip = 40;
 export const showMore = () => {
-  return { type: 'SHOW_MORE' };
+  skip += 40;
+  return function (dispatch) {
+    service
+      .getArticles(skip)
+      .then((res) => res.articles)
+      .then((articles) =>
+        dispatch({
+          type: 'SHOW_MORE',
+          articles,
+        })
+      );
+  };
 };

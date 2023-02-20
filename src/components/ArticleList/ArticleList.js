@@ -10,9 +10,10 @@ import Article from '../Article/Article';
 import classes from './ArticleList.module.scss';
 
 let keys = 100;
+//let skip = 40;
 
 const ArticleList = ({ articles, showMore, sliceEl, endSlice }) => {
-  let elements = articles.slice(sliceEl, endSlice).map((article) => {
+  let elements = articles.map((article) => {
     return (
       <Article
         key={keys++}

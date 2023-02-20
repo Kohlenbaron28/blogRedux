@@ -8,15 +8,12 @@ import Header from '../Header/Header';
 import ArticlesPage from '../pages/ArticlesPage';
 import ArticlePage from '../pages/ArticlePage';
 import * as actions from '../../store/actions';
-import service from '../../store/Service';
 
 import classes from './App.module.scss';
 
 function App({ loading, getAllArticles }) {
   React.useEffect(() => {
-    service.getArticles().then((res) => {
-      getAllArticles(res.articles);
-    });
+    getAllArticles();
   }, []);
   return (
     <div className={classes.app}>
