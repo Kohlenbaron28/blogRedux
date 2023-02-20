@@ -1,0 +1,32 @@
+body {
+  background: #e5e5e5;
+}
+.header {
+  font-size: 18px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  margin: 9px 22px;
+  justify-content: space-between;
+  background-color: white;
+  margin: 0;
+  padding: 10px;
+  &__title {
+    color: rgba(0, 0, 0, 0.85);
+  }
+  &__registr {
+    &_one {
+      border: none;
+      background-color: inherit;
+      margin-right: 20px;
+    }
+    &_two {
+      border: 1px solid #52c41a;
+      border-radius: 5px;
+      box-sizing: border-box;
+      background-color: inherit;
+      padding: 10px;
+      color: #52c41a;
+    }
+  }
+}
