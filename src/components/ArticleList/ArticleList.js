@@ -11,8 +11,8 @@ import classes from './ArticleList.module.scss';
 
 let keys = 100;
 
-const ArticleList = ({ articles, showMore }) => {
-  let elements = articles.map((article) => {
+const ArticleList = ({ articles, showMore, sliceEl, endSlice }) => {
+  let elements = articles.slice(sliceEl, endSlice).map((article) => {
     return (
       <Article
         key={keys++}
@@ -47,7 +47,7 @@ const ArticleList = ({ articles, showMore }) => {
 const mapStateToProps = (state) => {
   return {
     articles: state.articles,
-    sliceEl: state.slice,
+    sliceEl: state.sliceEl,
     endSlice: state.endSlice,
   };
 };
