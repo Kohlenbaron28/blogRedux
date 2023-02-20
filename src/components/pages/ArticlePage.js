@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { parseISO, format } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
 
 import * as actions from '../../store/actions';
 import Heart from '../../img/heart.png';
@@ -40,7 +41,9 @@ const ArticlePage = ({ article, getArticle }) => {
             )}
           </div>
           <div className={classes['article__content__description']}>{article.description}</div>
-          <div className={classes['article__content__text']}>{article.body}</div>
+          <div className={classes['article__content__text']}>
+            <ReactMarkdown>{article.body}</ReactMarkdown>
+          </div>
         </div>
         <div className={classes['article__avatar']}>
           <div className={classes['article__avatar__info']}>

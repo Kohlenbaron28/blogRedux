@@ -2,6 +2,7 @@ import { parseISO, format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
 
 import Heart from '../../img/heart.png';
 import * as actions from '../../store/actions';
@@ -33,7 +34,9 @@ const Article = ({ getArticle, slug, title, description, body, tagList, favorite
           {tagList.length > 0 ? tagList.map((tag) => <span key={keys++}>{tag}</span>) : <span>-</span>}
         </div>
         <div className={classes['article__content__description']}>{description}</div>
-        <div className={classes['article__content__text']}>{body}</div>
+        <div className={classes['article__content__text']}>
+          <ReactMarkdown>{body}</ReactMarkdown>
+        </div>
       </div>
       <div className={classes['article__avatar']}>
         <div className={classes['article__avatar__info']}>
