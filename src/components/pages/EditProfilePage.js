@@ -1,14 +1,23 @@
 import { useForm } from 'react-hook-form';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import * as actions from '../../store/actions';
 
 import classes from './Sign.module.scss';
 
-export default function EditProfilePage() {
+function EditProfilePage({ image, password, editProfile }) {
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const token = JSON.parse(localStorage.getItem('token'));
+  const onSubmit = (data) => {
+    localStorage.setItem('password', JSON.stringify(data.password));
+    editProfile(token, data);
+  };
+  console.log(image, password);
   return (
     <div className={classes.signUp}>
       <div className={classes['signUp__title']}>Edit Profile</div>
@@ -63,10 +72,10 @@ export default function EditProfilePage() {
               placeholder="Avatar image"
               {...register('img', {
                 required: false,
-                pattern: {
-                  value: /^((ftp|http|https):\/\/)?www\.([A-z]+)\.([A-z]{2,})/,
-                  message: 'Invalid URL',
-                },
+                // pattern: {
+                //   value: /^((ftp|http|https):\/\/)?www\.([A-z]+)\.([A-z]{2,})/,
+                //   message: 'Invalid URL',
+                // },
               })}
             />
             <p className={classes['signUp__errors']}>{errors.img?.message}</p>
@@ -78,3 +87,18 @@ export default function EditProfilePage() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    password: state.user,
+    image: state.image,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const { editProfile } = bindActionCreators(actions, dispatch);
+  return {
+    editProfile,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfilePage);

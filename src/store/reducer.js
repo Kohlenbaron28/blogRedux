@@ -2,9 +2,10 @@ const initialState = {
   articles: [],
   article: {},
   user: {},
-  isAutorized: false,
+  isAutorized: JSON.parse(localStorage.getItem('isAutorized')),
   loading: true,
   slug: null,
+  image: '',
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -45,6 +46,13 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isAutorized: false,
+      };
+    case 'EDIT_PROFILE':
+      return {
+        ...state,
+        user: action.res,
+        isAutorized: true,
+        image: action.res.img,
       };
     default:
       return state;

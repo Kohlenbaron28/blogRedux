@@ -76,8 +76,27 @@ export const autentification = (token) => {
 export const logOut = () => {
   localStorage.setItem('isAutorized', JSON.stringify(false));
   localStorage.removeItem('username');
-  localStorage.removeItem('email');
+  // localStorage.removeItem('image');
   return {
     type: 'LOG_OUT',
+  };
+};
+
+export const editProfile = (token, data) => {
+  console.log(token, data);
+  return function (dispatch) {
+    service.editProfilee(token, data).then((res) => {
+      console.log(res);
+      localStorage.setItem('email', JSON.stringify(res.user.email));
+      localStorage.setItem('username', JSON.stringify(res.user.username));
+      localStorage.setItem('password', JSON.stringify(res.user.password));
+      localStorage.setItem('image', JSON.stringify(res.user.image));
+      localStorage.setItem('isAutorized', JSON.stringify(true));
+      localStorage.setItem('token', JSON.stringify(res.user.token));
+      return dispatch({
+        type: 'EDIT_PROFILE',
+        res,
+      });
+    });
   };
 };

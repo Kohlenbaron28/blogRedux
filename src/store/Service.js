@@ -61,8 +61,34 @@ class Service {
     });
     return res;
   }
+  async editProfilee(token, data) {
+    console.log(token, data);
+    const res = fetch(`${this.baseUrl}user`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Token ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: {
+          username: String(data.username),
+          password: String(data.password),
+          email: String(data.email),
+          image: String(data.img),
+        },
+      }),
+    }).then((res) => {
+      console.log(res);
+      if (!res.ok) {
+        throw new Error(`error fetch URL ${`${this.baseStr}users`}, response status ${res.status}, ${res.message}`);
+      }
+      return res.json();
+    });
+    console.log(res);
+    return res;
+  }
 }
 
 const service = new Service();
-console.log(service.registrationUser().then((res) => console.log(res)));
+//console.log(service.editProfile().then((res) => console.log(res)));
 export default service;

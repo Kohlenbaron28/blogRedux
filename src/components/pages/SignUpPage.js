@@ -16,6 +16,7 @@ function SignUpPage({ user, registration }) {
   } = useForm({ defaultValues: { agryy: false } });
   const onSubmit = (data) => {
     console.log(data);
+    localStorage.setItem('password', JSON.stringify(data.password));
     registration(data);
   };
 

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -8,6 +8,7 @@ import * as actions from '../../store/actions';
 import classes from './Sign.module.scss';
 
 function SignInPage({ autentification }) {
+  let navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -17,7 +18,15 @@ function SignInPage({ autentification }) {
   console.log(token);
   const onSubmit = (data) => {
     console.log(data);
-    autentification(token);
+    if (
+      data.email === JSON.parse(localStorage.getItem('email')) &&
+      data.password === JSON.parse(localStorage.getItem('password'))
+    ) {
+      localStorage.setItem('password', JSON.stringify(data.password));
+      autentification(token);
+    } else {
+      return navigate('/sign-up');
+    }
   };
   console.log(errors);
   return (
