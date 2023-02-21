@@ -1,5 +1,8 @@
 body {
-  background: #e5e5e5;
+  background: #ebeef3;
+}
+a {
+  text-decoration: none;
 }
 .header {
   font-size: 18px;
@@ -19,14 +22,20 @@ body {
       border: none;
       background-color: inherit;
       margin-right: 20px;
+      cursor: pointer;
     }
     &_two {
+      cursor: pointer;
       border: 1px solid #52c41a;
       border-radius: 5px;
       box-sizing: border-box;
       background-color: inherit;
       padding: 10px;
       color: #52c41a;
+      &:hover {
+        background-color: #52c41a;
+        color: white;
+      }
     }
   }
 }

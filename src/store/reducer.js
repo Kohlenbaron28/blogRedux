@@ -1,10 +1,10 @@
 const initialState = {
   articles: [],
   article: {},
+  user: {},
+  isAutorized: false,
   loading: true,
   slug: null,
-  sliceEl: 0,
-  endSlice: 20,
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -28,6 +28,23 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         articles: action.articles,
+      };
+    case 'REGISTRATION':
+      return {
+        ...state,
+        user: action.res,
+        isAutorized: true,
+      };
+    case 'AUTENTIFICATION':
+      return {
+        ...state,
+        user: action.res,
+        isAutorized: true,
+      };
+    case 'LOG_OUT':
+      return {
+        ...state,
+        isAutorized: false,
       };
     default:
       return state;

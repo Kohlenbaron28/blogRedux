@@ -5,14 +5,12 @@ import { bindActionCreators } from 'redux';
 
 import * as actions from '../../store/actions';
 import Article from '../Article/Article';
-//import service from '../../store/Service';
 
 import classes from './ArticleList.module.scss';
 
 let keys = 100;
-//let skip = 40;
 
-const ArticleList = ({ articles, showMore, sliceEl, endSlice }) => {
+const ArticleList = ({ articles, showMore }) => {
   let elements = articles.map((article) => {
     return (
       <Article
@@ -48,8 +46,6 @@ const ArticleList = ({ articles, showMore, sliceEl, endSlice }) => {
 const mapStateToProps = (state) => {
   return {
     articles: state.articles,
-    sliceEl: state.sliceEl,
-    endSlice: state.endSlice,
   };
 };
 

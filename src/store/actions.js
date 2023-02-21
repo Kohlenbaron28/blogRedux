@@ -26,9 +26,6 @@ export const getArticle = (slug) => {
       });
   };
 };
-// export const sendSlug = (payload) => {
-//   return { type: 'SEND_SLUG', payload };
-// };
 let skip = 40;
 export const showMore = () => {
   skip += 40;
@@ -42,5 +39,45 @@ export const showMore = () => {
           articles,
         })
       );
+  };
+};
+
+export const registration = (data) => {
+  return function (dispatch) {
+    service.registrationUser(data).then((res) => {
+      console.log(res);
+      localStorage.setItem('email', JSON.stringify(res.user.email));
+      localStorage.setItem('username', JSON.stringify(res.user.username));
+      localStorage.setItem('isAutorized', JSON.stringify(true));
+      localStorage.setItem('token', JSON.stringify(res.user.token));
+      return dispatch({
+        type: 'REGISTRATION',
+        res,
+      });
+    });
+  };
+};
+
+export const autentification = (token) => {
+  return function (dispatch) {
+    service.loginUser(token).then((res) => {
+      console.log(res);
+      localStorage.setItem('email', JSON.stringify(res.user.email));
+      localStorage.setItem('username', JSON.stringify(res.user.username));
+      localStorage.setItem('isAutorized', JSON.stringify(true));
+      localStorage.setItem('token', JSON.stringify(res.user.token));
+      return dispatch({
+        type: 'AUTENTIFICATION',
+        res,
+      });
+    });
+  };
+};
+export const logOut = () => {
+  localStorage.setItem('isAutorized', JSON.stringify(false));
+  localStorage.removeItem('username');
+  localStorage.removeItem('email');
+  return {
+    type: 'LOG_OUT',
   };
 };

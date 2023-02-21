@@ -7,6 +7,9 @@ import { Routes, Route } from 'react-router-dom';
 import Header from '../Header/Header';
 import ArticlesPage from '../pages/ArticlesPage';
 import ArticlePage from '../pages/ArticlePage';
+import SignUpPage from '../pages/SignUpPage';
+import SignInPage from '../pages/SignInPage';
+import EditProfilePage from '../pages/EditProfilePage';
 import * as actions from '../../store/actions';
 
 import classes from './App.module.scss';
@@ -27,6 +30,9 @@ function App({ loading, getAllArticles }) {
           <Route exact path="/" element={<ArticlesPage />} />
           <Route exact path="/articles" element={<ArticlesPage />} />
           <Route path="/articles/:slug" element={<ArticlePage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/profile" element={<EditProfilePage />} />
         </Routes>
       )}
     </div>
