@@ -7,6 +7,7 @@ const initialState = {
   slug: null,
   image: '',
   alertValue: 'none',
+  favorite: {},
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -85,6 +86,11 @@ export const reducer = (state = initialState, action) => {
         alertValue: val,
       };
     }
+    case 'FAVORITE_ARTICLE':
+      return {
+        ...state,
+        favorite: action.res.article,
+      };
     default:
       return state;
   }

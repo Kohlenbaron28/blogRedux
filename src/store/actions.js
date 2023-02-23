@@ -144,3 +144,15 @@ export const changeAlertValue = () => {
     type: 'CHANGE_ALERT_VALUE',
   };
 };
+export const favoriteArticle = (token, slug) => {
+  console.log(token, slug);
+  return function (dispatch) {
+    service.favoriteArticle(token, slug).then((res) => {
+      console.log(res);
+      return dispatch({
+        type: 'FAVORITE_ARTICLE',
+        res,
+      });
+    });
+  };
+};

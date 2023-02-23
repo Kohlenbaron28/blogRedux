@@ -156,9 +156,24 @@ class Service {
       },
     }).then((res) => {
       if (!res.ok) {
-        throw new Error(`error fetch URL ${`${this.baseStr}article`}, response status ${res.status}`);
+        throw new Error(`error fetch URL ${`${this.baseStr}articles`}, response status ${res.status}`);
       }
       return res;
+    });
+    return res;
+  }
+  async favoriteArticle(token, slug) {
+    const res = fetch(`${this.baseUrl}articles/${slug}/favorite`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${token}`,
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      if (!res.ok) {
+        throw new Error(`error fetch URL ${`${this.baseStr}articles/favorites`}, response status ${res.status}`);
+      }
+      return res.json();
     });
     return res;
   }

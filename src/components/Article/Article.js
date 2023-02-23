@@ -1,5 +1,5 @@
 import { parseISO, format } from 'date-fns';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
@@ -11,7 +11,22 @@ import classes from './Article.module.scss';
 
 let keys = 1;
 
-const Article = ({ getArticle, slug, title, description, body, tagList, favoritesCount, name, img, createdAt }) => {
+const Article = ({
+  getArticle,
+  slug,
+  title,
+  description,
+  body,
+  tagList,
+  favoritesCount,
+  name,
+  img,
+  createdAt,
+  favoriteArticle,
+  isAutorized,
+}) => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  const navigate = useNavigate();
   return (
     <div className={classes.article}>
       <div className={classes['article__content']}>
@@ -26,7 +41,17 @@ const Article = ({ getArticle, slug, title, description, body, tagList, favorite
             </h1>
           </Link>
           <div>
-            <img src={Heart} alt="heart" />
+            <img
+              src={Heart}
+              alt="heart"
+              onClick={() => {
+                if (isAutorized) {
+                  favoriteArticle(token, slug);
+                } else {
+                  return navigate('/sign-in');
+                }
+              }}
+            />
             {favoritesCount}
           </div>
         </div>
@@ -54,14 +79,16 @@ const Article = ({ getArticle, slug, title, description, body, tagList, favorite
 const mapStateToProps = (state) => {
   return {
     actionsSlug: state.slug,
+    isAutorized: state.isAutorized,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  const { sendSlug, getArticle } = bindActionCreators(actions, dispatch);
+  const { sendSlug, getArticle, favoriteArticle } = bindActionCreators(actions, dispatch);
   return {
     sendSlug,
     getArticle,
+    favoriteArticle,
   };
 };
 

@@ -19,8 +19,8 @@ const ArticleList = ({ articles, showMore }) => {
         title={article.title}
         description={article.description}
         body={article.body}
-        tagList={article.tagList}
         favoritesCount={article.favoritesCount}
+        tagList={article.tagList}
         name={article.author.username}
         img={article.author.image}
         createdAt={article.createdAt}
