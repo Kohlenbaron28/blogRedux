@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useForm, useFieldArray, Controller, useWatch } from 'react-hook-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Button } from 'antd';
 
 import * as actions from '../../store/actions';
 
@@ -84,20 +85,29 @@ function EditArticlePage({ editArticle, slug }) {
               <section>
                 <input type="text" id={id} {...register(`tags.${index}.firstName`)} />
                 <ConditionalInput {...{ control, index, field }} />
-                <button type="button" onClick={() => remove(index)}>
+                <Button type="button" onClick={() => remove(index)}>
                   Delete
-                </button>
+                </Button>
               </section>
               <hr />
             </div>
           );
         })}
 
-        <button type="button" onClick={() => append()}>
-          Add tag
-        </button>
+        <Button onClick={() => append()}>Add tag</Button>
 
-        <input type="submit" value="Send" />
+        <input
+          type="submit"
+          value="Send"
+          style={{
+            border: ' 1px solid blue',
+            background: 'inherit',
+            padding: 5,
+            borderRadius: 5,
+            cursor: 'pointer',
+            marginLeft: 10,
+          }}
+        />
       </form>
     </div>
   );

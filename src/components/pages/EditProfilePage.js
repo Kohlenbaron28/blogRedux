@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import React from 'react';
 
 import * as actions from '../../store/actions';
 

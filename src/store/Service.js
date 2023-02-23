@@ -24,6 +24,7 @@ class Service {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Application: 'application/json',
       },
       body: JSON.stringify({
         user: {

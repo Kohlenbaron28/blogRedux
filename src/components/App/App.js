@@ -25,6 +25,9 @@ function App({ loading, getAllArticles, isAutorized, user, autentification }) {
     }
     getAllArticles();
   }, []);
+  //   React.useEffect(() => {
+  //     window.location.reload();
+  //   }, [user.user]);
   const PrivateRoute = ({ children }) => {
     if (isAutorized) {
       return children;
