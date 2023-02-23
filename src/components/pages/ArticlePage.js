@@ -12,16 +12,7 @@ import classes from '../Article/Article.module.scss';
 
 let keys = 1;
 
-const ArticlePage = ({
-  isAutorized,
-  favoriteArticle,
-  article,
-  getArticle,
-  slug,
-  alertValue,
-  changeAlertValue,
-  deleteArticle,
-}) => {
+const ArticlePage = ({ favoriteArticle, article, getArticle, slug, alertValue, changeAlertValue, deleteArticle }) => {
   console.log('article', article);
   const { pathname } = useLocation();
   const slugParams = matchPath('/articles/*', pathname);
@@ -44,7 +35,9 @@ const ArticlePage = ({
                 src={Heart}
                 alt="heart"
                 onClick={() => {
-                  isAutorized ? favoriteArticle(token, slug) : navigate('/sign-in');
+                  JSON.parse(localStorage.getItem('isAutorized')) === true
+                    ? favoriteArticle(token, slug)
+                    : navigate('/sign-in');
                 }}
               />
               {article.favoritesCount}
