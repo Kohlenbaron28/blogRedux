@@ -1,4 +1,4 @@
-import { useLocation, matchPath, Link } from 'react-router-dom';
+import { useLocation, matchPath, Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,12 +12,22 @@ import classes from '../Article/Article.module.scss';
 
 let keys = 1;
 
-const ArticlePage = ({ article, getArticle, slug, alertValue, changeAlertValue, deleteArticle }) => {
+const ArticlePage = ({
+  isAutorized,
+  favoriteArticle,
+  article,
+  getArticle,
+  slug,
+  alertValue,
+  changeAlertValue,
+  deleteArticle,
+}) => {
   console.log('article', article);
   const { pathname } = useLocation();
   const slugParams = matchPath('/articles/*', pathname);
   const isSlug = Object.values(slugParams.params)[0];
   let token = JSON.parse(localStorage.getItem('token'));
+  const navigate = useNavigate();
   if (article === undefined) {
     React.useEffect(() => {
       getArticle(isSlug);
@@ -30,7 +40,13 @@ const ArticlePage = ({ article, getArticle, slug, alertValue, changeAlertValue, 
             <h1>{article.title}</h1>
 
             <div>
-              <img src={Heart} alt="heart" />
+              <img
+                src={Heart}
+                alt="heart"
+                onClick={() => {
+                  isAutorized ? favoriteArticle(token, slug) : navigate('/sign-in');
+                }}
+              />
               {article.favoritesCount}
             </div>
           </div>
@@ -96,15 +112,17 @@ const mapStateToProps = (state) => {
     article: state.article.article,
     slug: state.slug,
     alertValue: state.alertValue,
+    isAutorized: state.isAutorized,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  const { getArticle, changeAlertValue, deleteArticle } = bindActionCreators(actions, dispatch);
+  const { getArticle, changeAlertValue, deleteArticle, favoriteArticle } = bindActionCreators(actions, dispatch);
   return {
     getArticle,
     changeAlertValue,
     deleteArticle,
+    favoriteArticle,
   };
 };
 
