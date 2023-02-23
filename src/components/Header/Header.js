@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Button } from 'antd';
 
 import Avatar from '../../img/avatar.png';
 import * as actions from '../../store/actions';
@@ -10,18 +11,17 @@ import classes from './Header.module.scss';
 
 const Header = ({ logOut }) => {
   const url = JSON.parse(localStorage.getItem('image'));
-  //   React.useEffect(()=>{
-
-  //   },[url])
   return (
     <div className={classes.header}>
       <Link to="/">
         <div className={classes['header__title']}>Realworld Blog</div>
       </Link>
       {JSON.parse(localStorage.getItem('isAutorized')) === true ? (
-        <div>
-          <button>Create article</button>
-          <div>
+        <div className={classes['header__title_info']}>
+          <Link to="/new-article">
+            <Button>Create article</Button>
+          </Link>
+          <div className={classes['header__title_info']}>
             {JSON.parse(localStorage.getItem('username'))}
             <Link to="/profile">
               <img
@@ -31,7 +31,7 @@ const Header = ({ logOut }) => {
               />
             </Link>
           </div>
-          <button onClick={() => logOut()}>Log Out</button>
+          <Button onClick={() => logOut()}>Log Out</Button>
         </div>
       ) : (
         <div className={classes['header__registr']}>

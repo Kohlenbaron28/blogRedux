@@ -76,7 +76,6 @@ export const autentification = (token) => {
 export const logOut = () => {
   localStorage.setItem('isAutorized', JSON.stringify(false));
   localStorage.removeItem('username');
-  // localStorage.removeItem('image');
   return {
     type: 'LOG_OUT',
   };
@@ -84,6 +83,7 @@ export const logOut = () => {
 
 export const editProfile = (token, data) => {
   console.log(token, data);
+  localStorage.setItem('password', JSON.stringify(data.newPassword));
   return function (dispatch) {
     service.editProfilee(token, data).then((res) => {
       console.log(res);
@@ -98,5 +98,49 @@ export const editProfile = (token, data) => {
         res,
       });
     });
+  };
+};
+
+export const postNewArticle = (token, data) => {
+  console.log(token, data);
+  return function (dispatch) {
+    service.postNewArticle(token, data).then((res) => {
+      console.log(res);
+      return dispatch({
+        type: 'POST_ARTICLE',
+        res,
+      });
+    });
+  };
+};
+
+export const editArticle = (token, data, slug) => {
+  console.log(token, data, slug);
+  return function (dispatch) {
+    service.editArticle(token, data, slug).then((res) => {
+      console.log(res);
+      return dispatch({
+        type: 'EDIT_ARTICLE',
+        res,
+      });
+    });
+  };
+};
+
+export const deleteArticle = (token, slug) => {
+  console.log(token, slug);
+  return function (dispatch) {
+    service.deleteArticle(token, slug).then((res) => {
+      console.log(res);
+      return dispatch({
+        type: 'DELETE_ARTICLE',
+        res,
+      });
+    });
+  };
+};
+export const changeAlertValue = () => {
+  return {
+    type: 'CHANGE_ALERT_VALUE',
   };
 };

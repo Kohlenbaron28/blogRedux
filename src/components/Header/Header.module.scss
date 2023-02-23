@@ -16,6 +16,11 @@ a {
   padding: 10px;
   &__title {
     color: rgba(0, 0, 0, 0.85);
+    &_info {
+      display: flex;
+      align-items: center;
+      margin: 0 10px;
+    }
   }
   &__registr {
     &_one {

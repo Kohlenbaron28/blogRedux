@@ -6,6 +6,7 @@ const initialState = {
   loading: true,
   slug: null,
   image: '',
+  alertValue: 'none',
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,9 +17,11 @@ export const reducer = (state = initialState, action) => {
         loading: false,
       };
     case 'GET_ARTICLE_BY_SLUG':
+      console.log(action);
       return {
         ...state,
         article: action,
+        slug: action.article.slug,
       };
     case 'SEND_SLUG':
       return {
@@ -54,6 +57,34 @@ export const reducer = (state = initialState, action) => {
         isAutorized: true,
         image: action.res.img,
       };
+    case 'POST_ARTICLE':
+      return {
+        ...state,
+        articles: [...state.articles, action.res.article],
+      };
+    case 'EDIT_ARTICLE':
+      return {
+        ...state,
+        article: action.res,
+        articles: [...state.articles, action.res.article],
+      };
+    case 'DELETE_ARTICLE':
+      return {
+        ...state,
+        article: action.res,
+      };
+    case 'CHANGE_ALERT_VALUE': {
+      let val = '';
+      if (state.alertValue === 'none') {
+        val = 'block';
+      } else {
+        val = 'none';
+      }
+      return {
+        ...state,
+        alertValue: val,
+      };
+    }
     default:
       return state;
   }

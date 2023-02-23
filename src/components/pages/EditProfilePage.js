@@ -14,7 +14,8 @@ function EditProfilePage({ image, password, editProfile }) {
   } = useForm();
   const token = JSON.parse(localStorage.getItem('token'));
   const onSubmit = (data) => {
-    localStorage.setItem('password', JSON.stringify(data.password));
+    console.log(data.password);
+    // localStorage.setItem('password', JSON.stringify(data.password));
     editProfile(token, data);
   };
   console.log(image, password);
