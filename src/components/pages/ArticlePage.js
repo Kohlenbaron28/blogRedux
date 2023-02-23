@@ -1,4 +1,4 @@
-import { useLocation, matchPath, Link, useNavigate } from 'react-router-dom';
+import { useLocation, matchPath, Link } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,7 +18,7 @@ const ArticlePage = ({ favoriteArticle, article, getArticle, slug, alertValue, c
   const slugParams = matchPath('/articles/*', pathname);
   const isSlug = Object.values(slugParams.params)[0];
   let token = JSON.parse(localStorage.getItem('token'));
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
   if (article === undefined) {
     React.useEffect(() => {
       getArticle(isSlug);
@@ -35,9 +35,7 @@ const ArticlePage = ({ favoriteArticle, article, getArticle, slug, alertValue, c
                 src={Heart}
                 alt="heart"
                 onClick={() => {
-                  JSON.parse(localStorage.getItem('isAutorized')) === true
-                    ? favoriteArticle(token, slug)
-                    : navigate('/sign-in');
+                  JSON.parse(localStorage.getItem('isAutorized')) === true && favoriteArticle(token, slug);
                 }}
               />
               {article.favoritesCount}
