@@ -3,6 +3,7 @@ import { useForm, useFieldArray, Controller, useWatch } from 'react-hook-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { InputComponent } from '../Input/Input';
 import * as actions from '../../store/actions';
 
 import classes from './Sign.module.scss';
@@ -43,39 +44,36 @@ function NewArticlePage({ postNewArticle }) {
     <div className={classes.signUp}>
       <div className={classes['signUp__title']}>Create new article</div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          Title
-          <input
-            className={classes['signUp__form_input']}
-            type="text"
-            placeholder="Title"
-            {...register('title', { required: true })}
-          />
-          <p className={classes['signUp__errors']}>{errors.title && 'Input valid username'}</p>
-        </label>
-        <label>
-          Short description
-          <input
-            className={classes['signUp__form_input']}
-            type="text"
-            placeholder="Short description"
-            {...register('description', { required: true })}
-          />
-          <p className={classes['signUp__errors']}>{errors.description && 'Input valid email'}</p>
-        </label>
-
-        <label>
-          Text
-          <input
-            className={classes['signUp__form_input']}
-            type="text"
-            placeholder="Text"
-            {...register('text', {
-              required: true,
-            })}
-          />
-          <p className={classes['signUp__errors']}>{errors.text?.message}</p>
-        </label>
+        <InputComponent
+          register={register}
+          errors={errors}
+          name="title"
+          options={{
+            required: true,
+          }}
+          title="Title"
+          type="text"
+        />
+        <InputComponent
+          register={register}
+          errors={errors}
+          name="description"
+          options={{
+            required: true,
+          }}
+          title="Short description"
+          type="text"
+        />
+        <InputComponent
+          register={register}
+          errors={errors}
+          name="text"
+          options={{
+            required: true,
+          }}
+          title="Text"
+          type="text"
+        />
         <h3>Tags</h3>
         {fields.map((field, index) => {
           const id = `tags.${index}.checkbox`;

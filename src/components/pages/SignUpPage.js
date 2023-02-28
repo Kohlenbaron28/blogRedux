@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { InputComponent } from '../Input/Input';
 import * as actions from '../../store/actions';
 
 import classes from './Sign.module.scss';
@@ -27,75 +28,56 @@ function SignUpPage({ user, registration }) {
       <div className={classes['signUp__title']}>Create new account</div>
       <div className={classes['signUp__form']}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label>
-            Username
-            <input
-              {...register('username', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3',
-                },
-                maxLength: {
-                  value: 20,
-                  message: 'Max length is 20',
-                },
-              })}
-              className={classes['signUp__form_input']}
-              type="text"
-              placeholder="Username"
-            />
-            <p className={classes['signUp__errors']}>{errors.username?.message}</p>
-          </label>
+          <InputComponent
+            register={register}
+            errors={errors}
+            name="username"
+            options={{
+              required: { value: true, message: 'is required' },
+              minLength: { value: 3, message: 'min length is 3' },
+              maxLength: {
+                value: 20,
+                message: 'Max length is 20',
+              },
+            }}
+            title="Username"
+            type="text"
+          />
+          <InputComponent
+            register={register}
+            errors={errors}
+            name="email"
+            options={{ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ }}
+            type="text"
+            title="Email"
+          />
+          <InputComponent
+            register={register}
+            errors={errors}
+            name="password"
+            options={{
+              required: true,
+              minLength: {
+                value: 6,
+                message: 'Min length is 6',
+              },
+              maxLength: {
+                value: 40,
+                message: 'Max length is 40',
+              },
+            }}
+            type="text"
+            title="Password"
+          />
+          <InputComponent
+            register={register}
+            errors={errors}
+            name="repeat password"
+            options={{ required: true, validate: (value) => value === watch('password') }}
+            type="text"
+            title="Repeat Password"
+          />
 
-          <label>
-            Email address
-            <input
-              {...register('email', {
-                required: true,
-                pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-              })}
-              className={classes['signUp__form_input']}
-              type="text"
-              placeholder="Email address"
-            />
-            <p className={classes['signUp__errors']}>{errors.email && 'Input valid email'}</p>
-          </label>
-
-          <label>
-            Password
-            <input
-              {...register('password', {
-                required: true,
-                minLength: {
-                  value: 6,
-                  message: 'Min length is 6',
-                },
-                maxLength: {
-                  value: 40,
-                  message: 'Max length is 40',
-                },
-              })}
-              className={classes['signUp__form_input']}
-              type="text"
-              placeholder="Password"
-            />
-            <p className={classes['signUp__errors']}>{errors.password?.message}</p>
-          </label>
-
-          <label>
-            Repeat Password
-            <input
-              {...register('repeat password', {
-                required: true,
-                validate: (value) => value === watch('password'),
-              })}
-              className={classes['signUp__form_input']}
-              type="text"
-              placeholder="Password"
-            />
-            <p className={classes['signUp__errors']}>{errors['repeat password'] && 'Dont match'}</p>
-          </label>
           <label className={classes['sideBar__label']}>
             <input
               {...register('agryy', {
